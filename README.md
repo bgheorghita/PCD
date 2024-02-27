@@ -1,1 +1,1 @@
-# Programare Concurenta si Distribuita (PCD) - Teme
+# Programare Concurenta si Distribuita (PCD) - Teme - 2024
