@@ -1,19 +1,34 @@
 package uaic.fii.pcd.monitors;
 
-public class TrafficMonitor {
+import uaic.fii.pcd.servers.Protocol;
+import uaic.fii.pcd.utils.DataUnits;
+
+public class TrafficMonitorImpl implements TrafficMonitor {
     private long totalBytesRead;
     private long totalMessagesReceived;
+    private Protocol usedProtocol;
 
-    public synchronized void incrementBytesRead(long bytesRead) {
+    @Override
+    public synchronized void addToBytesRead(long bytesRead) {
         totalBytesRead += bytesRead;
     }
 
-    public synchronized void incrementMessagesReceived() {
-        totalMessagesReceived++;
+    @Override
+    public synchronized void addToMessagesRead(long messagesRead) {
+        totalMessagesReceived += messagesRead;
     }
 
-    public synchronized void displayTrafficStats() {
+    @Override
+    public synchronized void setUsedProtocol(Protocol protocol) {
+        this.usedProtocol = protocol;
+    }
+
+    @Override
+    public void displayStatistics() {
+        if(usedProtocol != null) {
+            System.out.println("Used protocol: " + usedProtocol.name());
+        }
         System.out.println("Total Messages Received: " + totalMessagesReceived);
-        System.out.println("Total Bytes Read: " + totalBytesRead);
+        System.out.println("Total Bytes Read: " + totalBytesRead + " (" + totalBytesRead / (totalBytesRead == 0 ? 1 : DataUnits.ONE_MB) + " MB)");
     }
 }

@@ -1,4 +1,4 @@
-package uaic.fii.pcd;
+package uaic.fii.pcd.servers;
 
 public enum MechanismType {
     STREAMING, STOP_AND_WAIT
