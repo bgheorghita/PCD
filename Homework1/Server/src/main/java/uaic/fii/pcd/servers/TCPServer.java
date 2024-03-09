@@ -50,6 +50,7 @@ public class TCPServer extends Server {
                 int bytesRead;
                 int totalBytesRead = 0;
                 while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    stopAndWaitIfActivated(outputStream);
                     totalBytesRead += bytesRead;
                     while (totalBytesRead < Server.MAX_MESSAGE_SIZE) {
                         int remainingBytes = Server.MAX_MESSAGE_SIZE - totalBytesRead;
@@ -57,20 +58,24 @@ public class TCPServer extends Server {
                         if (bytesRead == -1) {
                             break;
                         }
+                        stopAndWaitIfActivated(outputStream);
                         totalBytesRead += bytesRead;
                     }
                     processMessage(buffer, totalBytesRead);
                     totalBytesRead = 0;
-                    if (MechanismType.STOP_AND_WAIT.equals(mechanismType)) {
-                        outputStream.write(ACK);
-                        outputStream.flush();
-                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {
                 System.out.println("Connection closed");
                 trafficMonitor.displayStatistics();
+            }
+        }
+
+        private void stopAndWaitIfActivated(OutputStream outputStream) throws IOException {
+            if (MechanismType.STOP_AND_WAIT.equals(mechanismType)) {
+                outputStream.write(ACK);
+                outputStream.flush();
             }
         }
 
