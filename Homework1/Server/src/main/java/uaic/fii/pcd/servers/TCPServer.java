@@ -48,8 +48,19 @@ public class TCPServer extends Server {
                 OutputStream outputStream = socket.getOutputStream();
                 byte[] buffer = new byte[Server.MAX_MESSAGE_SIZE];
                 int bytesRead;
+                int totalBytesRead = 0;
                 while ((bytesRead = inputStream.read(buffer)) != -1) {
-                    processMessage(buffer, bytesRead);
+                    totalBytesRead += bytesRead;
+                    while (totalBytesRead < Server.MAX_MESSAGE_SIZE) {
+                        int remainingBytes = Server.MAX_MESSAGE_SIZE - totalBytesRead;
+                        bytesRead = inputStream.read(buffer, totalBytesRead, remainingBytes);
+                        if (bytesRead == -1) {
+                            break;
+                        }
+                        totalBytesRead += bytesRead;
+                    }
+                    processMessage(buffer, totalBytesRead);
+                    totalBytesRead = 0;
                     if (MechanismType.STOP_AND_WAIT.equals(mechanismType)) {
                         outputStream.write(ACK);
                         outputStream.flush();
@@ -64,7 +75,7 @@ public class TCPServer extends Server {
         }
 
         private void processMessage(byte[] buffer, int bytesRead) {
-            String message = new String(buffer, 0, bytesRead);
+            //String message = new String(buffer, 0, bytesRead);
             //System.out.println("Received message: " + message);
             trafficMonitor.addToMessagesRead(1);
             trafficMonitor.addToBytesRead(bytesRead);
