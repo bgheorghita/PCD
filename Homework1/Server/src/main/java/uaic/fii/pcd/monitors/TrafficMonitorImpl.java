@@ -29,6 +29,6 @@ public class TrafficMonitorImpl implements TrafficMonitor {
             System.out.println("Used protocol: " + usedProtocol.name());
         }
         System.out.println("Total Messages Received: " + totalMessagesReceived);
-        System.out.println("Total Bytes Read: " + totalBytesRead + " (" + totalBytesRead / (totalBytesRead == 0 ? 1 : DataUnits.ONE_MB) + " MB)");
+        System.out.println("Total Bytes Read: " + totalBytesRead + " (" + String.format("%.2f", (double)totalBytesRead / DataUnits.ONE_MB) + " MB)");
     }
 }
