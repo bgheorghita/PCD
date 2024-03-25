@@ -5,6 +5,7 @@ import TransactionList from './components/TransactionList';
 import AssignCategory from './components/AssignCategory';
 import TransactionByDateRange from './components/TransactionByDateRange';
 import ScoringComponent from './components/ScoringComponent';
+import NotificationComponent from './components/NotificationComponent';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <AssignCategory />
       <TransactionByDateRange />
       <ScoringComponent />
+      <NotificationComponent />
     </div>
   );
 }
