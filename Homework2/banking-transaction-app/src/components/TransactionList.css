@@ -1,0 +1,32 @@
+.transaction-list-container {
+    text-align: center;
+  }
+  
+  .toggle-button {
+    margin-bottom: 10px;
+  }
+  
+  .table-container {
+    margin-top: 20px;
+  }
+  
+  .transaction-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .transaction-table th,
+  .transaction-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .transaction-table th {
+    background-color: #f2f2f2;
+    text-align: left;
+  }
+  
+  .transaction-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  

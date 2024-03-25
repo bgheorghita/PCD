@@ -1,0 +1,24 @@
+.category-list-container {
+    text-align: center;
+  }
+  
+  .category-table {
+    border-collapse: collapse;
+    width: 35%;
+    margin: 0 auto;
+  }
+  
+  .category-table th, .category-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .category-table th {
+    background-color: #f2f2f2;
+  }
+  
+  .category-table tr:hover {
+    background-color: #f2f2f2;
+  }
+  
